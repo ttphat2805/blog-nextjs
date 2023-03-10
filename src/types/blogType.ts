@@ -2,7 +2,7 @@ export interface IBlogPost {
   id?: number;
   title: string;
   url?: string;
-  bodyText?: string;
+  bodyText: string;
   html?: string;
   discussionUrl?: string;
   tags: string[];
