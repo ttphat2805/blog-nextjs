@@ -71,26 +71,27 @@ const Home: NextPage = ({
               );
             })}
           </div>
-
-          {filteredBlog.map((blog: IBlogPost) => {
-            return (
-              <div
-                key={blog.id}
-                className="max-w[28em] max-h-[20em] overflow-hidden mx-6 mb-6 bg-neutral-300 text-zinc-800 
+          <div className="list-blog grid grid-cols-3">
+            {filteredBlog.map((blog: IBlogPost) => {
+              return (
+                <div
+                  key={blog.id}
+                  className="col-span-1 overflow-hidden mx-6 mb-6 bg-neutral-300 text-zinc-800 
                   rounded-lg cursor-pointer p-4 hover:bg-neutral-400 hover:text-neutral-300 transition-all duration-200"
-              >
-                <a href={blog.url} target="_blank" rel="noreferrer">
-                  <BlogPreview
-                    title={blog.title}
-                    bodyText={blog.bodyText}
-                    createdAt={blog.createdAt}
-                    author={blog.author}
-                    tags={blog.tags}
-                  />
-                </a>
-              </div>
-            );
-          })}
+                >
+                  <a href={blog.url} target="_blank" rel="noreferrer">
+                    <BlogPreview
+                      title={blog.title}
+                      bodyText={blog.bodyText}
+                      createdAt={blog.createdAt}
+                      author={blog.author}
+                      tags={blog.tags}
+                    />
+                  </a>
+                </div>
+              );
+            })}
+          </div>
         </section>
       </main>
     </>
