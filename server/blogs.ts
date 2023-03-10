@@ -18,13 +18,13 @@ export async function getBlogs(): Promise<IBlogPost[]> {
   });
 
   let res = await response.json();
+  console.log("res: ", res);
   const discussions = res.data?.repository.discussions.nodes;
   const posts = discussions?.map((discussion: any) => {
     const {
       title,
       author,
       createdAt,
-      lastEditedAt: lastEdited,
       number: id,
       bodyHTML: html,
       bodyText,

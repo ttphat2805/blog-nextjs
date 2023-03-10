@@ -1,4 +1,3 @@
-import BlogPreview from "@/components/blogPreview";
 import {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -7,6 +6,7 @@ import {
 import { Inter } from "next/font/google";
 import Head from "next/head";
 import { useState } from "react";
+import BlogPreview from "@/components/BlogPreview";
 import { getBlogs } from "../../server/blogs";
 import { IBlogPost } from "../types/blogType";
 
@@ -18,6 +18,7 @@ const Home: NextPage = ({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [filterWord, setFilterWord] = useState<string[]>([]);
   const [selectedIdx, setSelectedIdx] = useState<number[]>([]);
+  console.log(tags);
 
   const filterLabel = (tag: any, idx: number) => {
     if (selectedIdx.includes(idx)) {
@@ -89,6 +90,7 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   let blogs: IBlogPost[] = await getBlogs();
+  console.log("blogs: ", blogs);
   let tags: string[] = [];
   for (const blog of blogs) {
     for (const tag of blog.tags) {

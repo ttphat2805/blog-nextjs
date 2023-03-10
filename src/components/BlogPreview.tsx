@@ -1,5 +1,5 @@
-import { IBlogPost } from "@/types/blogType";
 import React from "react";
+import { IBlogPost } from "@/types/blogType";
 import BlogHeader from "./BlogHeader";
 
 const BlogPreview: React.FC<IBlogPost> = ({
