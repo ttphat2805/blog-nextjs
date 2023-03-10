@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
+@import "github-syntax-dark/lib/github-dark.css";
 
 @layer components {
   .layout {
