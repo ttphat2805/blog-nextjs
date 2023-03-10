@@ -5,10 +5,10 @@ import {
 } from "next";
 import { Inter } from "next/font/google";
 import Head from "next/head";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import BlogPreview from "@/components/BlogPreview";
 import { getBlogs } from "../../server/blogs";
-import { IBlogPost } from "../types/blogType";
+import { IBlogPost } from "@/types/blogType";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,15 +17,25 @@ const Home: NextPage = ({
   tags,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [filterWord, setFilterWord] = useState<string[]>([]);
-  const [selectedIdx, setSelectedIdx] = useState<number[]>([]);
-  console.log(tags);
 
-  const filterLabel = (tag: any, idx: number) => {
-    if (selectedIdx.includes(idx)) {
-      const removeSelected = selectedIdx.filter((id) => id !== idx);
-      setSelectedIdx(removeSelected);
+  const filteredBlog: IBlogPost[] = useMemo(() => {
+    if (filterWord.length > 0) {
+      return blogData.filter((blog: IBlogPost) => {
+        return filterWord.every((filter) => blog.tags.includes(filter));
+      });
     } else {
-      setSelectedIdx([...selectedIdx, idx]);
+      return blogData;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterWord]);
+
+  const filterLabel = (tag: any) => {
+    let tagText: string = tag.innerText;
+    if (filterWord.includes(tagText)) {
+      const removeSelected = filterWord.filter((word) => word !== tagText);
+      setFilterWord(removeSelected);
+    } else {
+      setFilterWord([...filterWord, tagText]);
     }
   };
 
@@ -49,12 +59,12 @@ const Home: NextPage = ({
               return (
                 <button
                   className={`${
-                    selectedIdx.includes(idx)
+                    filterWord.includes(tag)
                       ? "label-selected hover:bg-sky-400 transition-all duration-300"
                       : "label hover:bg-sky-400 transition-all duration-300"
                   }`}
                   key={idx}
-                  onClick={(e) => filterLabel(e.target, idx)}
+                  onClick={(e) => filterLabel(e.target)}
                 >
                   {tag}
                 </button>
@@ -62,7 +72,7 @@ const Home: NextPage = ({
             })}
           </div>
 
-          {blogData.map((blog: IBlogPost) => {
+          {filteredBlog.map((blog: IBlogPost) => {
             return (
               <div
                 key={blog.id}
@@ -90,7 +100,6 @@ export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
   let blogs: IBlogPost[] = await getBlogs();
-  console.log("blogs: ", blogs);
   let tags: string[] = [];
   for (const blog of blogs) {
     for (const tag of blog.tags) {

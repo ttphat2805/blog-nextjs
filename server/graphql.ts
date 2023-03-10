@@ -26,3 +26,22 @@ export function disscussionGraphQL(
   }
     }`;
 }
+
+// SINGLE POST
+
+export function disscussionGraphQLDetail(postId: number | undefined) {
+  return `{
+    repository(name: "blog-nextjs", owner: "ttphat2805") {
+     discussion(number:${postId}) {
+        title
+        bodyHTML
+        createdAt
+        author {
+          login
+          url
+          avatarUrl
+        }
+      }
+    }
+  }`;
+}

@@ -1,0 +1,43 @@
+.customBlog > h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+.customBlog > h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.customBlog > ul {
+  margin-bottom: 2rem;
+}
+.customBlog > p {
+  margin: 1rem 0;
+}
+.customBlog > * > * img {
+  margin-bottom: 2rem;
+}
+.customBlog > * > * > code,
+.customBlog > * > code {
+  background-color: rgb(93, 93, 93);
+  padding: 0.25rem;
+  border-radius: 6px;
+}
+.customBlog > * > pre {
+  margin: 1rem 0;
+  background-color: rgb(58, 57, 57);
+  padding: 0.75rem;
+  overflow-x: scroll;
+  border-radius: 12px;
+}
+.customBlog > blockquote {
+  border-left: 3px rgb(167, 167, 167) solid;
+  color: rgb(167, 167, 167);
+  padding-left: 0.55rem;
+  margin: 1rem 0;
+}
+.customBlog > * > li::before {
+  content: '•';
+  font-size: 1.25rem;
+  margin-right: 0.5rem;
+}
